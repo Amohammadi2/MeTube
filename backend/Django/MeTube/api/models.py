@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.timezone import now
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_img = models.ImageField(upload_to="/profiles/", null=True, blank=True)
     bio = models.CharField(max_length=200)
 
@@ -15,7 +15,7 @@ class Channel(models.Model):
 
 
 class Video(models.Model):
-    channel = models.ForeignKey(Channel)
+    channel = models.ForeignKey(Channel, models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     video = models.FileField(upload_to="/videos/")
@@ -24,8 +24,8 @@ class Video(models.Model):
 class Comment(models.Model):
     # both User and Video models have access to
     # the comments through their `comments` property
-    commenter = models.ForeignKey(User, related_name="comments")
-    video = models.ForeignKey(Video, related_name="comments")
+    commenter = models.ForeignKey(User, models.CASCADE ,related_name="comments")
+    video = models.ForeignKey(Video, models.CASCADE ,related_name="comments")
     comment_text = models.CharField(max_length=300)
 
 class Notification(models.Model):
@@ -45,8 +45,8 @@ class Notification(models.Model):
 
 
 class Subscription(models.Model):
-    subscriber = models.ForeignKey(User)
-    subscribed_channel = models.ForeignKey(Channel)
+    subscriber = models.ForeignKey(User, models.CASCADE)
+    subscribed_channel = models.ForeignKey(Channel, models.CASCADE)
     subscription_date = models.DateField()
     receive_notifications = models.BooleanField(default=False)
 
