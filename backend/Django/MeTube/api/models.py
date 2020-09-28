@@ -4,7 +4,7 @@ from django.utils.timezone import now
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_img = models.ImageField(upload_to="/profiles/", null=True, blank=True)
+    profile_img = models.ImageField(upload_to="profiles/", null=True, blank=True)
     bio = models.CharField(max_length=200)
 
 
@@ -18,8 +18,8 @@ class Video(models.Model):
     channel = models.ForeignKey(Channel, models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
-    video = models.FileField(upload_to="/videos/")
-    poster = models.ImageField(upload_to="/imgs/")
+    video = models.FileField(upload_to="videos/")
+    poster = models.ImageField(upload_to="imgs/")
 
 class Comment(models.Model):
     # both User and Video models have access to
@@ -36,7 +36,7 @@ class Notification(models.Model):
     ]
 
     text = models.CharField(max_length=300)
-    status = models.CharField(choices = Notification.status_choices)
+    status = models.CharField(max_length=10, choices = status_choices)
     seen = models.BooleanField(default=True)
     user = models.ForeignKey(User, models.CASCADE)
 
