@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 
+from django.dispatch import receiver
+from django.db.models.signals import post_save 
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_img = models.ImageField(upload_to="profiles/", null=True, blank=True)
@@ -68,3 +73,15 @@ class Subscription(models.Model):
 
     def __str__(self):
         return self.subscriber.username + " is subscribing  " + self.subscribed_channel.name
+
+@receiver(post_save, sender=User)
+def generateAuthToken(sender, instance=None, created=False, **kwargs):
+    """ Automatically generates tokens for users """
+    if created:
+        Token.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def createUserProfile(sender, instance=None, created=False, **kwargs):
+    """ Automatically creates user profiles for user instances """
+    if created:
+        Profile.objects.create(user=instance)

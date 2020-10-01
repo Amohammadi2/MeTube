@@ -32,13 +32,13 @@ $light-green: #49ff89;
         cursor: pointer;
         width: 100%;
         transition: all .2s ease-in-out;
-        padding: 5px 0px;
+        padding: 12px 0px;
 
         &:hover {
             background-color: $dark-green;
         
             .floating-content {
-                clip-path: circle(120% at 35% 35%);
+                clip-path: circle(200% at 30% -50%);
             }
         }
 
