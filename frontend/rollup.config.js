@@ -5,7 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import preprocess from "svelte-preprocess";
 import typescript from "@rollup/plugin-typescript";
-import { type } from 'os';
+import json from "@rollup/plugin-json";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -39,6 +39,11 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+		json(),
+		resolve({
+			browser: true,
+			dedupe: ['svelte']
+		}),
 		typescript({sourceMap: !production}),
 		svelte({
 			// support for preprocessing sass and typescript
@@ -57,10 +62,6 @@ export default {
 		// some cases you'll need additional configuration -
 		// consult the documentation for details:
 		// https://github.com/rollup/plugins/tree/master/packages/commonjs
-		resolve({
-			browser: true,
-			dedupe: ['svelte']
-		}),
 		commonjs(),
 
 		// In dev mode, call `npm run start` once

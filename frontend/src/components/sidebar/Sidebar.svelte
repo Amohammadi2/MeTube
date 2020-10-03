@@ -1,4 +1,6 @@
-<script lang="ts" src="./sidebar-script.ts"></script>
+<script lang="ts">
+    import Profile from "../profile/Profile.svelte";
+</script>
 <style lang="scss" src="./sidebar-style.scss"></style>
 
 <template>
@@ -6,8 +8,7 @@
         <div class="sidebar-item">
             <span class="material-icons">person</span>
             <div class="floating-content">
-                <h3>ashkan mohammadi</h3>
-                <p>mohammadiashkan1384@gmail.com</p>
+                <Profile />
             </div>
         </div>
         <div class="sidebar-item">

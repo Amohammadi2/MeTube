@@ -38,7 +38,8 @@ $light-green: #49ff89;
             background-color: $dark-green;
         
             .floating-content {
-                clip-path: circle(200% at 30% -50%);
+                clip-path: circle(100% at 50% 50%);
+                box-shadow: 5px 8px 6px 1px gray;
             }
         }
 
@@ -62,12 +63,12 @@ $light-green: #49ff89;
             position: absolute;
             z-index: 999;
             left: 48px;
-            top: -80px;
+            top: -100px;
             border-radius: 10px;
-            width: 300px;
-            height: 200px;
-            background-color: rgb(34, 34, 34);
-            color: rgb(255, 255, 255);
+            width: 400px;
+            height: 250px;
+            background-color: rgb(238, 238, 238);
+            color: rgb(44, 44, 44);
             clip-path: circle(0% at 0%);
             transition: all .5s ease-in-out;
             box-sizing: border-box;

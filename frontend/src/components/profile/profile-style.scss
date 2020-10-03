@@ -1,0 +1,95 @@
+$gray:  rgb(59, 59, 59);
+$green: rgb(28, 180, 79);
+
+@mixin roundedSquar($size) {
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    
+    img.profile {
+        @include roundedSquar(20px);
+    }
+}
+
+.box {
+    overflow: hidden;
+}
+
+.form-inputs {
+    width: 100%;
+    margin-top: 40px;
+
+    div.form-input{
+        width: 100%;
+        height: 30px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid white;
+        margin-bottom: 30px;
+        position: relative;
+
+        input {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            margin: 0;
+            padding-left: 0px;
+            padding-bottom: 10px;
+            outline: none;
+            background-color: transparent;
+            font-size: 18px;
+        }
+
+        .label {
+            pointer-events: none;
+            position: absolute;
+            left: 0;
+            top: -5px;
+            color: $gray;
+            font-size: 18px;
+            transition: all .09s ease-in;
+        }
+
+        input:focus , input:valid{
+            & ~ .label {
+                top: -20px;
+                font-size: 12px;
+            }
+        }
+
+
+        .magic-line {
+            width: 100%;
+            height: 2px;
+            position: absolute;
+            left: -200%;
+            bottom: -2px;
+            transition: all .2s ease-out;
+            background-color: $green;
+        }
+
+        input:focus ~ .magic-line {
+            left: 0;
+        }
+    }
+}
+
+.btn {
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+.btn-green {
+    @extend .btn;
+    background-color: $green;
+    transition: all .09s ease-in;
+    color: white;
+
+    &:hover {
+        background-color: rgb(24, 116, 55);   
+    }
+}

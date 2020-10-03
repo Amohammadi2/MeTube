@@ -21,6 +21,7 @@ class RetrieveUpdateUserProfile (GenericAPIView, RetrieveModelMixin):
         return self.request.user.profile
 
     def get(self, request, *args, **kwargs):
+        print (request.user)
         if not isinstance(request.user, AnonymousUser):
             return self.retrieve(request, *args, **kwargs)
         return Response({"error": "user credentialsare not provided"}, HTTP_401_UNAUTHORIZED)

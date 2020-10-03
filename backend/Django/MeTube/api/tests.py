@@ -65,3 +65,4 @@ class UserProfileTest (TestCase):
             dumps(profile.data),
             ProfileSerializer(user.profile).data
         )
+        print (profile.data)

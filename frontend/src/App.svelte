@@ -1,11 +1,12 @@
-<script>
-	import Sidebar from "./components/sidebar/Sidebar.svelte";
+<script lang="ts">
+import Sidebar from "./components/sidebar/Sidebar.svelte";
 </script>
 
 <template>
 	<Sidebar />
+	hello world
 </template>
 
-<style>
+<style lang="scss">
 
 </style>
