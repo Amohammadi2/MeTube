@@ -12,7 +12,18 @@ $green: rgb(28, 180, 79);
     flex-direction: row;
     
     img.profile {
-        @include roundedSquar(20px);
+        @include roundedSquar(60px);
+    }
+
+    .username{
+        line-height: 60px;
+        margin-left: 15px;
+    }
+}
+
+.info-container {
+    p {
+        padding: 5px 0px;
     }
 }
 
@@ -42,6 +53,14 @@ $green: rgb(28, 180, 79);
             outline: none;
             background-color: transparent;
             font-size: 18px;
+            // remove the red border around the input field
+            // in firefox browser
+            &:required {
+                box-shadow: none;
+            }
+            &:invalid {
+                box-shadow: none;
+            }
         }
 
         .label {
@@ -81,15 +100,25 @@ $green: rgb(28, 180, 79);
 .btn {
     cursor: pointer;
     padding: 8px 12px;
+    transition: all .09s ease-in;
 }
 
 .btn-green {
     @extend .btn;
     background-color: $green;
-    transition: all .09s ease-in;
     color: white;
 
     &:hover {
         background-color: rgb(24, 116, 55);   
+    }
+}
+
+.btn-red {
+    @extend .btn;
+    background-color: rgb(235, 34, 77);
+    color: white;
+
+    &:hover {
+        background-color: rgb(133, 17, 36);   
     }
 }

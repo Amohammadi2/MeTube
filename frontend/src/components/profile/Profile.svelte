@@ -19,14 +19,19 @@ function login() {
         password: login_password,
     })
     .then(response => {
-        //localStorage.setItem("authToken", response.data.token);
+        localStorage.setItem("authToken", response.data.token);
         authToken.set(response.data.token);
-        getProfile($authToken);
+        // let the component update its state
+        setTimeout(() => {
+            login_username = ""; login_password = ""; // reset the login form
+        }, 200);
     })
     .catch(console.error);
 }
 
-function getProfile(auth_token) {
+authToken.subscribe(auth_token => {
+    if (!auth_token) return;
+    console.log ("profile is fetch")
     let profile_url = `/users/get-profile/`;
     APIRequest.get(profile_url, {
         headers: {
@@ -39,7 +44,13 @@ function getProfile(auth_token) {
         username = profile.user.username;
         email = profile.user.email;
         profileImageUrl = profile.profile_img;
+        bio = profile.bio;
     })
+})
+
+function logout() {
+    localStorage.removeItem("authToken");
+    authToken.set("");
 }
 
 </script>
@@ -49,12 +60,16 @@ function getProfile(auth_token) {
     {#if $authToken}
         <div class="flex-row">
             <img class="profile" src={profileImageUrl} alt="profile" />
-            <h3>{username}</h3>
+            <h3 class="username">{username}</h3>
         </div>
-        <div class="flex-row">
-            <p>{email}</p>
-            <p>{userId}</p>
+        <div class="info-container">
+            <p>email: {email}</p>
+            <p>ID: {userId}</p>
+            <p>biography: {bio}</p>
         </div>
+        <footer style="margin-top: 30px">
+            <button class="btn-red" on:click={logout}>logout</button>
+        </footer>
     {:else}
         <div class="box">
             <p style="margin-bottom: 10px">you haven't logged in</p>
