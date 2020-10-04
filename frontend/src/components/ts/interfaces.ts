@@ -1,9 +1,17 @@
+interface IUser {
+    username: string;
+    email: string;
+    password?: string;
+}
+
 export interface IProfile {
     id: number;
-    user: {
-        username: string;
-        email: string;
-    };
+    user: IUser;
     profile_img: string;
     bio: string;
+}
+
+export interface INotification {
+    message: string;
+    state: string;
 }

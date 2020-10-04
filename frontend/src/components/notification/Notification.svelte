@@ -1,0 +1,21 @@
+<script lang="ts">
+import { fly } from "svelte/transition";
+import { Notifications } from "../ts/api";
+
+export let message: string;
+// any rgb, hexadecimal value wich represents a color
+export let backgroundColor: string;
+</script>
+
+<template>
+    <div
+        class="notification"
+        style="background-color: {backgroundColor}"
+        transition:fly="{{duration: 200, y: 200}}"
+        on:click={Notifications.close}
+    >
+        {message}
+    </div>
+</template>
+
+<style lang="scss" src="./notification-style.scss"></style>
