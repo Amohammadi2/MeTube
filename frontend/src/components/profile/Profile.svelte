@@ -1,6 +1,6 @@
 <script lang="ts">
 import { authToken } from "../ts/states";
-import { APIRequest } from "../ts/api";
+import { APIRequest, Notifier } from "../ts/api";
 import type { IProfile } from "../ts/interfaces";
 
 let profileImageUrl: string;
@@ -12,7 +12,13 @@ let userId: number;
 let login_username: string;
 let login_password: string;
 
+let is_loading: boolean = false;
+
 function login() {
+    if (!login_password || !login_username) {
+        new Notifier().error("please fill out the fields");
+        return;
+    }
     let login_url = `/users/get-auth-token/`;
     APIRequest.post(login_url, {
         username: login_username,
@@ -25,8 +31,13 @@ function login() {
         setTimeout(() => {
             login_username = ""; login_password = ""; // reset the login form
         }, 200);
+        // let the user know the login processs succeeded
+        new Notifier().success("logged in successfully")
     })
-    .catch(console.error);
+    .catch(error => {
+        console.error(error);
+        new Notifier().error("username/password is incorrect");
+    });
 }
 
 authToken.subscribe(auth_token => {

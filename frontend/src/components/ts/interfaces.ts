@@ -14,4 +14,5 @@ export interface IProfile {
 export interface INotification {
     message: string;
     state: string;
+    key: symbol; // this key will be used in a `keyed each block` to make it unique
 }

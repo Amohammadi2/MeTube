@@ -7,7 +7,7 @@ export const APIRequest = axios.create({
     baseURL: apiUrl,
 })
 
-export class Notifications {
+export class Notifier {
 
     public static _notifications = writable(<Array<INotification>>[]); 
 
@@ -20,9 +20,9 @@ export class Notifications {
     private _show_notification(message:string, state: string) {
         if (!(state in this.states)) this._show_notification(`${state} doesn't exist in states`, "error");
         // // Todo: implement this method to abstract out adding notifications
-        Notifications._notifications.update(value => {
+        Notifier._notifications.update(value => {
             value.push(<INotification> {
-                message, state
+                message, state, key: Symbol(),
             });
             return value;
         })
@@ -47,16 +47,14 @@ export class Notifications {
      * a custom event handler for notifications
      * it clears notifications on `click` event
      */
-    public static close (event: MouseEvent) {
-        let message: string = (<HTMLElement>event.target).innerText;
-        console.log(message)
-        Notifications._notifications.update(value => {
+    public static close (event: MouseEvent, key: symbol) {
+        console.log(key);
+        Notifier._notifications.update(value => {
             return value.filter((value, index, array) => {
-                if (value.message != message) {
-                    console.log ("enterd if statement")
+                if (value.key != key) {
                     return value;
                 }
-            })
-        })
+            });
+        });
     }
 }
