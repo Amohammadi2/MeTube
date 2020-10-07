@@ -48,16 +48,15 @@ export class Notifications {
      * it clears notifications on `click` event
      */
     public static close (event: MouseEvent) {
-        let message: string = (<HTMLElement>event.target).innerText; 
+        let message: string = (<HTMLElement>event.target).innerText;
+        console.log(message)
         Notifications._notifications.update(value => {
-            for (let index in value){
-                if (value[index].message == message) {
-                    // becaue the type of index is string I used `+` before
-                    // its name to convert it into a number
-                    value.splice(+index, 1);
+            return value.filter((value, index, array) => {
+                if (value.message != message) {
+                    console.log ("enterd if statement")
+                    return value;
                 }
-            }
-            return value;
+            })
         })
     }
 }

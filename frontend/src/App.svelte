@@ -1,15 +1,10 @@
 <script lang="ts">
+import { flip } from "svelte/animate";
 import Sidebar from "./components/sidebar/Sidebar.svelte";
 import { authToken } from "./components/ts/states";
 import { Notifications } from "./components/ts/api";
 import Notification from "./components/notification/Notification.svelte";
 import type { INotification } from "./components/ts/interfaces";
-
-import { onMount } from "svelte";
-
-onMount(() => {
-	new Notifications().error("notificatoins doesn't work");
-})
 
 // check if the user has logged in before or not
 authToken.set(localStorage.getItem("authToken") || "");
@@ -23,11 +18,13 @@ Notifications._notifications.subscribe(value => {
 
 <template>
 	<div class="notification-box">
-		{#each notifications_list as notification}
-			<Notification
-				message={notification.message}
-				backgroundColor={new Notifications().states[notification.state]}
-			/>
+		{#each notifications_list as notification (notification.message)}
+			<div class="notification-wrapper" animate:flip={{duration: 100}}>
+				<Notification
+					message={notification.message}
+					backgroundColor={new Notifications().states[notification.state]}
+				/>
+			</div>
 		{/each}
 	</div>
 	<Sidebar />

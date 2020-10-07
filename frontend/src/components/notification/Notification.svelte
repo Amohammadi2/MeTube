@@ -11,7 +11,7 @@ export let backgroundColor: string;
     <div
         class="notification"
         style="background-color: {backgroundColor}"
-        transition:fly="{{duration: 200, y: 200}}"
+        transition:fly="{{duration: 500, y: 300}}"
         on:click={Notifications.close}
     >
         {message}
